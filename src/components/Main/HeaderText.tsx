@@ -1,6 +1,13 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FC } from "react";
 
-const HeaderText = () => {
+const HeaderText: FC = () => {
+  const router = useRouter();
+  const auth = () => {
+    router.push("/api/authorize");
+  };
+
   return (
     <div className="bg-elevated-base w-full h-screen">
       <div className="relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32 space-y-8">
@@ -16,7 +23,10 @@ const HeaderText = () => {
           <span className=" text-primary-green">accounted</span> for.
         </p>
 
-        <button className="border-2 group m-auto rounded-md border-primary-green text-black flex items-center gap-2 pl-2 pr-4">
+        <button
+          onClick={auth}
+          className="border-2 group m-auto rounded-md border-primary-green text-black flex items-center gap-2 pl-2 pr-4"
+        >
           <Image
             className="h-16 w-16"
             src={"/spotify.svg"}
