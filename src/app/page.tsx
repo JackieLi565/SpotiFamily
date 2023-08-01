@@ -1,5 +1,3 @@
-"use client";
-
 import HeaderText from "@/components/Main/HeaderText";
 import Navbar from "@/components/Main/Navbar";
 

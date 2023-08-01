@@ -1,6 +1,8 @@
 import { spotifyApi } from "@/constants";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import admin from "@/lib/firebase.config";
+import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 const db = admin.database;
 
@@ -61,9 +63,20 @@ export async function GET(request: Request) {
         trackedTopTracks,
       });
     }
+
+    const response = NextResponse.redirect(new URL("/", request.url));
+
+    const cookie = jwt.sign({ id: userDocumentRef.id }, process.env.JWT_SECRET);
+
+    response.cookies.set("SpooCookie", cookie, {
+      httpOnly: true,
+      maxAge: 3600,
+      secure: true,
+      sameSite: "lax",
+    });
+
+    return response;
   } catch (e: any) {
     console.log(e.message);
   }
-
-  redirect("/");
 }
