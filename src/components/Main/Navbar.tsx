@@ -1,7 +1,15 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { FC } from "react";
 
-const Navbar = () => {
+type NavbarProps = {
+  isLoggedIn: boolean;
+};
+const Navbar: FC<NavbarProps> = ({ isLoggedIn = false }) => {
+  const logout = () => {
+    console.log("logout");
+  };
   return (
     <nav className=" bg-elevated-base w-full flex justify-between items-center px-8 py-4">
       <div className="flex items-center gap-2">
@@ -15,12 +23,21 @@ const Navbar = () => {
         <p className="text-2xl text-white">SpotiFamily</p>
       </div>
 
-      <Link
-        href={"/Admin-Login"}
-        className="text-lg text-sub-gray hover:text-primary-green transition-colors"
-      >
-        Admin Login
-      </Link>
+      {!isLoggedIn ? (
+        <Link
+          href={"/Admin-Login"}
+          className="text-lg text-sub-gray hover:text-primary-green transition-colors"
+        >
+          Admin Login
+        </Link>
+      ) : (
+        <button
+          className="text-lg text-sub-gray hover:text-primary-green transition-colors"
+          onClick={logout}
+        >
+          Logout
+        </button>
+      )}
     </nav>
   );
 };

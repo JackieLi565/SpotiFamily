@@ -64,7 +64,7 @@ export async function GET(request: Request) {
       });
     }
 
-    const response = NextResponse.redirect(new URL("/", request.url));
+    const response = NextResponse.redirect(new URL("/Home", request.url));
 
     const cookie = jwt.sign({ id: userDocumentRef.id }, process.env.JWT_SECRET);
 
