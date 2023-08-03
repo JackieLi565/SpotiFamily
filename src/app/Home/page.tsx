@@ -27,7 +27,7 @@ export default function Page({}) {
             <MemberFeed />
           </div>
           <div className="rounded max-w-[217px] min-w-[217px] h-fit sticky top-4 space-y-4">
-            <Payment />
+            {/* <Payment /> */}
           </div>
         </div>
       </main>
