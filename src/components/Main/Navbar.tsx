@@ -1,14 +1,16 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FC } from "react";
 
 type NavbarProps = {
   isLoggedIn: boolean;
 };
 const Navbar: FC<NavbarProps> = ({ isLoggedIn = false }) => {
+  const { replace } = useRouter();
   const logout = () => {
-    console.log("logout");
+    replace("/api/logout");
   };
   return (
     <nav className=" bg-elevated-base w-full flex justify-between items-center px-8 py-4">

@@ -11,7 +11,7 @@ const HeaderText: FC = () => {
   };
 
   return (
-    <div className="bg-elevated-base w-full h-screen">
+    <section className="h-screen">
       <div className="relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32 space-y-8">
         <h1 className="text-white font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center">
           Swiftly keep track of family member payments reminder free.
@@ -41,7 +41,7 @@ const HeaderText: FC = () => {
           </p>
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 

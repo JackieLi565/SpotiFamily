@@ -1,4 +1,4 @@
-type UserData = {
+export type UserData = {
   currentTopTrack: {
     imageUrl: string;
     trackName: string;
@@ -24,6 +24,29 @@ type UserData = {
     uri: string;
     artist: { name: string; uri: string }[];
   }[];
+  paymentHistory: string[];
+  // true is paid, false is pending
+  paymentStatus: boolean;
+  points: number;
 };
 
-export type { UserData };
+export type MemberCardData = {
+  id: string;
+  image: string;
+  name: string;
+  recentlyPlayed: {
+    name: string;
+    imageUrl: string;
+    uri: string;
+    artist: {
+      name: string;
+      uri: string;
+    }[];
+  }[];
+  topArtists: {
+    name: string;
+    imageUrl: string;
+    uri: string;
+  }[];
+  topGenre: string;
+};
