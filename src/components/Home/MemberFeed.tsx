@@ -1,45 +1,39 @@
-import Image from "next/image";
 import admin from "@/lib/firebase.config";
 import { cookies } from "next/headers";
 import { MemberCardData, UserData } from "@/types/types";
 import { notFound } from "next/navigation";
-import jwt from "jsonwebtoken";
 import MemberCard from "./MemberCard";
+import { verify } from "jsonwebtoken";
 
 async function getMemberFeed() {
   const database = admin.database;
   const cookieStore = cookies();
   const cookie = cookieStore.get("SpooCookie");
 
-  if (!cookie) notFound();
-
   try {
-    const cookieData = jwt.verify(cookie.value, process.env.JWT_SECRET) as {
+    if (!cookie) throw new Error("No cookie found");
+    const cookieData = verify(cookie.value, process.env.JWT_SECRET) as {
       id: string;
-      iat: number;
     };
-
-    const documentData = (
-      await database.collection("family").doc(cookieData.id).get()
-    ).data() as UserData;
-
     const documentList = await database.collection("family").get();
 
     const documentDataList: MemberCardData[] = [];
 
     documentList.forEach((doc) => {
       const data = doc.data() as UserData;
-      console.log(data);
 
       const id = doc.id;
-      documentDataList.push({
-        id,
-        image: data.imageUrl,
-        name: data.name,
-        recentlyPlayed: data.recentTracks.slice(0, 5),
-        topArtists: data.trackedTopArtists.slice(0, 3),
-        topGenre: data.topGenre,
-      });
+
+      if (data.name && id !== cookieData.id) {
+        documentDataList.push({
+          id,
+          image: data.imageUrl,
+          name: data.name,
+          recentlyPlayed: data.recentTracks.slice(0, 5),
+          topArtists: data.trackedTopArtists.slice(0, 3),
+          topGenre: data.topGenre,
+        });
+      }
     });
 
     return documentDataList;
@@ -52,5 +46,12 @@ async function getMemberFeed() {
 
 export default async function MemberFeed() {
   const members = await getMemberFeed();
-  return <MemberCard members={members} />;
+  return (
+    <>
+      <h1 className="text-white text-3xl font-semibold py-6 my-2">
+        Explore Members
+      </h1>
+      <MemberCard members={members} />
+    </>
+  );
 }

@@ -50,7 +50,7 @@ export default async function Profile() {
   const profileData = await getProfileDetails();
 
   return (
-    <>
+    <div className="w-[275px] h-fit sticky top-4 space-y-4">
       <div className="rounded bg-elevated-base w-full h-20 flex px-4 items-center gap-4">
         <Image
           className="rounded-full object-fill h-12 w-12"
@@ -65,37 +65,36 @@ export default async function Profile() {
         </div>
       </div>
 
-      <div className="h-96 w-full bg-elevated-base rounded px-4 py-2 space-y-3">
+      <div className="h-96 w-full bg-elevated-base rounded px-4 py-4 space-y-3">
         <h1 className="text-primary-green text-2xl font-semibold w-full">
           My Stats
         </h1>
         <div className="border-[1px] border-y-gray-300 max-w-full" />
         <div className="space-y-1">
           <h2 className="text-gray-300 text-md">Top 3 Artists</h2>
-          {/* mapp */}
           <div className="flex flex-col gap-1">
             {profileData.artists.map((artist, index) => (
               <a
                 target="_blank"
                 href={artist.uri}
                 key={artist.uri}
-                className="text-sub-gray px-2"
+                className="text-sub-gray px-2 hover:text-primary-green"
               >
                 {index + 1}. {artist.name}
               </a>
             ))}
           </div>
         </div>
+
         <div className="space-y-1">
           <h2 className="text-gray-300 text-md">Top 3 Songs</h2>
-          {/* mapp */}
           <div className="flex flex-col gap-1">
             {profileData.tracks.map((track, index) => (
               <a
                 target="_blank"
                 href={track.uri}
                 key={track.uri}
-                className="text-sub-gray px-2"
+                className="text-sub-gray px-2 hover:text-primary-green"
               >
                 {index + 1}. {track.name}
               </a>
@@ -105,11 +104,14 @@ export default async function Profile() {
 
         <div className="space-y-1">
           <h2 className="text-gray-300 text-md">Current Favourite</h2>
-          <a href={profileData.track.uri} className="text-sub-gray px-2">
+          <a
+            href={profileData.track.uri}
+            className="text-sub-gray px-2 hover:text-primary-green"
+          >
             {profileData.track.trackName}
           </a>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -5,6 +5,7 @@ import Navbar from "@/components/Main/Navbar";
 import Profile from "@/components/Home/Profile";
 import Payment from "@/components/Home/Payment";
 import MemberFeed from "@/components/Home/MemberFeed";
+import AnimateFade from "@/components/Animations/Fade";
 
 export default function Page({}) {
   const cookieStore = cookies();
@@ -17,18 +18,18 @@ export default function Page({}) {
       <Navbar isLoggedIn={true} />
       <main className="py-6">
         <div className="relative flex justify-center max-w-6xl m-auto gap-4">
-          <div className="w-[275px] h-fit sticky top-4 space-y-4">
+          <AnimateFade type="left">
             <Profile />
-          </div>
+          </AnimateFade>
+
           <div className="flex-1">
-            <h1 className="text-white text-3xl font-semibold py-6">
-              Explore Members
-            </h1>
-            <MemberFeed />
+            <AnimateFade type="center">
+              <MemberFeed />
+            </AnimateFade>
           </div>
-          <div className="w-[217px] h-fit sticky top-4 space-y-4">
+          <AnimateFade type="right">
             <Payment />
-          </div>
+          </AnimateFade>
         </div>
       </main>
     </>

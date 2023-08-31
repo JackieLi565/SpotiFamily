@@ -19,7 +19,6 @@ export async function GET(request: Request) {
     const clientData = await spotifyApi.getMe();
 
     const collectionRef = db.collection("family");
-
     const doc = await collectionRef
       .where("email", "==", clientData.body.email)
       .get();
@@ -34,8 +33,8 @@ export async function GET(request: Request) {
     //   // set up user profile
     // }
     if (true) {
-      // top tracks
       const topTracks = await spotifyApi.getMyTopTracks();
+
       // top artists
       const topArtists = await spotifyApi.getMyTopArtists();
       // recent tracks

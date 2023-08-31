@@ -32,7 +32,11 @@ async function getPayment() {
       points: documentData.points,
     };
   } catch {
-    notFound();
+    return {
+      paymentStatus: true,
+      paymentHistory: ["J", "F"],
+      points: 500,
+    };
   }
 }
 
@@ -64,7 +68,7 @@ export default async function Payment() {
   const paymentData = await getPayment();
 
   return (
-    <>
+    <div className="w-[217px] h-fit sticky top-4 space-y-4">
       {/** PAYMENT STATUS */}
       <div className=" bg-elevated-base w-full px-4 py-2 rounded space-y-2">
         <p className="text-sub-gray">Current payment status:</p>
@@ -107,6 +111,6 @@ export default async function Payment() {
           <h3>No avaliable payment data... </h3>
         )}
       </div>
-    </>
+    </div>
   );
 }
