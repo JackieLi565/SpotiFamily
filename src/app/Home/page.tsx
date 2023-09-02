@@ -1,13 +1,14 @@
 import jwt from "jsonwebtoken";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import Navbar from "@/components/Main/Navbar";
 import Profile from "@/components/Home/Profile";
 import Payment from "@/components/Home/Payment";
 import MemberFeed from "@/components/Home/MemberFeed";
 import AnimateFade from "@/components/Animations/Fade";
+import LogoutButton from "@/components/Buttons/LogoutButton";
+import Header from "@/components/Header";
 
-export default function Page({}) {
+export default function Page() {
   const cookieStore = cookies();
   const cookieValue = cookieStore.get("SpooCookie")?.value;
   if (!cookieValue) redirect("/");
@@ -15,7 +16,8 @@ export default function Page({}) {
 
   return (
     <>
-      <Navbar isLoggedIn={true} />
+      <Header action={<LogoutButton />} />
+
       <main className="py-6">
         <div className="relative flex justify-center max-w-6xl m-auto gap-4">
           <AnimateFade type="left">

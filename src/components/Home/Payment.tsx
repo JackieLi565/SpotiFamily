@@ -34,7 +34,7 @@ async function getPayment() {
   } catch {
     return {
       paymentStatus: true,
-      paymentHistory: ["J", "F"],
+      paymentHistory: [],
       points: 500,
     };
   }
@@ -102,13 +102,14 @@ export default async function Payment() {
 
         {paymentData.paymentHistory.length !== 0 ? (
           <ol className="space-y-1">
-            {" "}
             {paymentData.paymentHistory.map((date) => (
               <li className="text-sub-gray">{date}</li>
             ))}
           </ol>
         ) : (
-          <h3>No avaliable payment data... </h3>
+          <h3 className="text-sub-gray text-center">
+            No avaliable payment data...
+          </h3>
         )}
       </div>
     </div>

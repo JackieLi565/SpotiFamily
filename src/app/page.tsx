@@ -1,9 +1,12 @@
+import LogoutButton from "@/components/Buttons/LogoutButton";
+import Header from "@/components/Header";
 import HeaderText from "@/components/Main/HeaderText";
-import Navbar from "@/components/Main/Navbar";
+import Link from "next/link";
 export default function Page() {
   return (
     <main className="bg-elevated-base h-full">
-      <Navbar isLoggedIn={false} />
+      <Header action={<Link href={""} />} />
+
       <HeaderText />
     </main>
   );
