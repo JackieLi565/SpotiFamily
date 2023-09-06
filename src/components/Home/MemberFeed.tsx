@@ -1,12 +1,11 @@
 import admin from "@/lib/firebase.config";
 import { cookies } from "next/headers";
-import { MemberCardData, UserData } from "@/types/types";
-import { notFound } from "next/navigation";
+import { MemberCardData, User } from "@/types/types";
 import MemberCard from "./MemberCard";
 import { verify } from "jsonwebtoken";
-
+import { collections } from "@/constants";
 async function getMemberFeed() {
-  const database = admin.database;
+  const db = admin.database;
   const cookieStore = cookies();
   const cookie = cookieStore.get("SpooCookie");
 
@@ -15,32 +14,34 @@ async function getMemberFeed() {
     const cookieData = verify(cookie.value, process.env.JWT_SECRET) as {
       id: string;
     };
-    const documentList = await database.collection("family").get();
+    const documentList = await db
+      .collection(collections.family)
+      .where("profile.accountVerified", "==", true)
+      .get();
 
     const documentDataList: MemberCardData[] = [];
 
     documentList.forEach((doc) => {
-      const data = doc.data() as UserData;
-
+      const { music, profile } = doc.data() as User;
+      const { imageUrl, name } = profile;
+      const { recentTracks, trackedTopArtists, topGenre } = music;
       const id = doc.id;
 
-      if (data.name && id !== cookieData.id) {
+      if (id !== cookieData.id) {
         documentDataList.push({
           id,
-          image: data.imageUrl,
-          name: data.name,
-          recentlyPlayed: data.recentTracks.slice(0, 5),
-          topArtists: data.trackedTopArtists.slice(0, 3),
-          topGenre: data.topGenre,
+          image: imageUrl,
+          name,
+          recentlyPlayed: recentTracks.slice(0, 5),
+          topArtists: trackedTopArtists.slice(0, 3),
+          topGenre,
         });
       }
     });
 
     return documentDataList;
   } catch (e: any) {
-    console.log(e.message);
-
-    notFound();
+    return [];
   }
 }
 
@@ -51,7 +52,15 @@ export default async function MemberFeed() {
       <h1 className="text-white text-3xl font-semibold py-6 my-2">
         Explore Members
       </h1>
-      <MemberCard members={members} />
+      {members.length !== 0 ? (
+        <MemberCard members={members} />
+      ) : (
+        <div className="text-3xl text-sub-gray flex justify-center py-64 border border-primary-green rounded-md">
+          <h1 className="max-w-sm text-center">
+            No Members Found Besides You.
+          </h1>
+        </div>
+      )}
     </>
   );
 }

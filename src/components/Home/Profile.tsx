@@ -3,8 +3,8 @@ import admin from "@/lib/firebase.config";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import jwt from "jsonwebtoken";
-import { UserData } from "@/types/types";
-
+import { User } from "@/types/types";
+import profileIcon from "../../../public/profileIcon.svg";
 // get name
 // top 3 artists
 // top 3 songs
@@ -22,24 +22,19 @@ async function getProfileDetails() {
       iat: number;
     };
 
-    const documentData = (
+    const { profile, music } = (
       await database.collection("family").doc(cookieData.id).get()
-    ).data() as UserData;
+    ).data() as User;
+
+    const { name, imageUrl } = profile;
+    const { trackedTopArtists, trackedTopTracks, currentTopTrack } = music;
 
     return {
-      name: documentData.name,
-      image: documentData.imageUrl,
-      tracks: [
-        documentData.trackedTopTracks[0],
-        documentData.trackedTopTracks[1],
-        documentData.trackedTopTracks[2],
-      ],
-      artists: [
-        documentData.trackedTopArtists[0],
-        documentData.trackedTopArtists[1],
-        documentData.trackedTopArtists[2],
-      ],
-      track: documentData.currentTopTrack,
+      name,
+      image: imageUrl,
+      tracks: trackedTopTracks.slice(0, 3),
+      artists: trackedTopArtists.slice(0, 3),
+      track: currentTopTrack,
     };
   } catch {
     notFound();
@@ -54,7 +49,7 @@ export default async function Profile() {
       <div className="rounded bg-elevated-base w-full h-20 flex px-4 items-center gap-4">
         <Image
           className="rounded-full object-fill h-12 w-12"
-          src={profileData.image}
+          src={profileData.image ? profileData.image : profileIcon}
           alt="profile picture"
           width={80}
           height={80}

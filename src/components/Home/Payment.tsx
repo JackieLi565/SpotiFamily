@@ -2,7 +2,7 @@ import admin from "@/lib/firebase.config";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import jwt from "jsonwebtoken";
-import { UserData } from "@/types/types";
+import { User } from "@/types/types";
 
 /**
  * Current paid status
@@ -22,21 +22,19 @@ async function getPayment() {
       iat: number;
     };
 
-    const documentData = (
+    const { payment } = (
       await database.collection("family").doc(cookieData.id).get()
-    ).data() as UserData;
+    ).data() as User;
+
+    const { paymentStatus, paymentHistory, points } = payment;
 
     return {
-      paymentStatus: documentData.paymentStatus,
-      paymentHistory: documentData.paymentHistory.slice(0, 5),
-      points: documentData.points,
+      paymentStatus,
+      paymentHistory: paymentHistory.slice(0, 5),
+      points,
     };
   } catch {
-    return {
-      paymentStatus: true,
-      paymentHistory: [],
-      points: 500,
-    };
+    return undefined;
   }
 }
 
@@ -70,48 +68,58 @@ export default async function Payment() {
   return (
     <div className="w-[217px] h-fit sticky top-4 space-y-4">
       {/** PAYMENT STATUS */}
-      <div className=" bg-elevated-base w-full px-4 py-2 rounded space-y-2">
-        <p className="text-sub-gray">Current payment status:</p>
-        {paymentData.paymentStatus ? (
-          <h1 className="text-primary-green text-2xl w-full text-center">
-            Paid
+      {paymentData ? (
+        <>
+          <div className=" bg-elevated-base w-full px-4 py-2 rounded space-y-2">
+            <p className="text-sub-gray">Current payment status:</p>
+            {paymentData.paymentStatus ? (
+              <h1 className="text-primary-green text-2xl w-full text-center">
+                Paid
+              </h1>
+            ) : (
+              <h1 className="text-red-500 text-2xl w-full  text-center">
+                Awaiting
+              </h1>
+            )}
+          </div>
+
+          <div className="bg-elevated-base w-full px-4 py-2 rounded space-y-2">
+            <h1 className="text-white text-2xl w-full">My Points:</h1>
+            <p className=" bg-gradient-to-r  from-blue-500 to-primary-green bg-clip-text text-transparent w-full text-2xl font-semibold text-center">
+              {paymentData.points}
+            </p>
+          </div>
+
+          <div className="bg-elevated-base w-full px-4 py-3 rounded space-y-2">
+            <h1 className="text-primary-green text-2xl w-full">
+              Your Next Bill
+            </h1>
+            <p className="text-sub-gray w-full text-center">
+              {getNextBillingDate()}
+            </p>
+            <h1 className="text-white text-xl w-full">Payment History</h1>
+            <div className="border-[1px] border-y-gray-300 max-w-full" />
+
+            {paymentData.paymentHistory.length !== 0 ? (
+              <ol className="space-y-1">
+                {paymentData.paymentHistory.map((date) => (
+                  <li className="text-sub-gray">{date}</li>
+                ))}
+              </ol>
+            ) : (
+              <h3 className="text-sub-gray text-center">
+                No avaliable payment data...
+              </h3>
+            )}
+          </div>
+        </>
+      ) : (
+        <div className="bg-elevated-base w-full px-4 py-2 rounded space-y-2">
+          <h1 className="text-2xl text-red-600">
+            Payment Info Error: Code 500
           </h1>
-        ) : (
-          <h1 className="text-red-500 text-2xl w-full  text-center">
-            Awaiting
-          </h1>
-        )}
-      </div>
-
-      {/** POINTS */}
-      <div className="bg-elevated-base w-full px-4 py-2 rounded space-y-2">
-        <h1 className="text-white text-2xl w-full">My Points:</h1>
-        <p className=" bg-gradient-to-r  from-blue-500 to-primary-green bg-clip-text text-transparent w-full text-2xl font-semibold text-center">
-          {paymentData.points}
-        </p>
-      </div>
-
-      {/** BILLING DATES */}
-      <div className="bg-elevated-base w-full px-4 py-3 rounded space-y-2">
-        <h1 className="text-primary-green text-2xl w-full">Your Next Bill</h1>
-        <p className="text-sub-gray w-full text-center">
-          {getNextBillingDate()}
-        </p>
-        <h1 className="text-white text-xl w-full">Payment History</h1>
-        <div className="border-[1px] border-y-gray-300 max-w-full" />
-
-        {paymentData.paymentHistory.length !== 0 ? (
-          <ol className="space-y-1">
-            {paymentData.paymentHistory.map((date) => (
-              <li className="text-sub-gray">{date}</li>
-            ))}
-          </ol>
-        ) : (
-          <h3 className="text-sub-gray text-center">
-            No avaliable payment data...
-          </h3>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

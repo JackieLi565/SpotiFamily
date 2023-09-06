@@ -3,6 +3,7 @@ import { MemberCardData } from "@/types/types";
 import Image from "next/image";
 import { FC } from "react";
 import Reveal from "../Animations/Reveal";
+import profileIcon from "../../../public/profileIcon.svg";
 
 type MemberCardProps = {
   members: MemberCardData[];
@@ -15,24 +16,24 @@ const MemberCard: FC<MemberCardProps> = ({ members }) => {
         <Reveal>
           <div key={member.id} className="space-y-4 w-full">
             <div className="flex flex-col gap-4 bg-elevated-base rounded p-4">
-              <div className="flex items-center">
-                <Image
-                  className="rounded-full object-fill h-12 w-12"
-                  src={member.image}
-                  alt="profile picture"
-                  width={80}
-                  height={80}
-                />
-                <div className="flex justify-between w-full px-2">
-                  <div className="flex gap-4">
-                    <h1 className="text-sub-gray text-2xl">{member.name}</h1>
-                    <h1 className="bg-gradient-to-r from-red-400 to-blue-400 bg-clip-text text-transparent text-2xl text-center font-semibold ">
-                      {member.topGenre.charAt(0).toUpperCase() +
-                        member.topGenre.slice(1)}
-                    </h1>
-                  </div>
-                  <h1 className=" text-primary-green rounded text-2xl">Paid</h1>
+              <div className="flex justify-between">
+                <div className="flex items-center gap-2">
+                  <Image
+                    className="rounded-full object-fill h-12 w-12"
+                    src={member.image ? member.image : profileIcon}
+                    alt="profile picture"
+                    width={80}
+                    height={80}
+                  />
+                  <h1 className="text-sub-gray text-2xl">
+                    {member.name ? member.name : `Member ${member.id}`}
+                  </h1>
                 </div>
+
+                <h1 className="bg-gradient-to-r from-red-400 to-blue-400 bg-clip-text text-transparent text-2xl text-center font-semibold ">
+                  {member.topGenre.charAt(0).toUpperCase() +
+                    member.topGenre.slice(1)}
+                </h1>
               </div>
 
               <div className="px-8">

@@ -55,8 +55,8 @@ export type Payment = {
 
 export type MemberCardData = {
   id: string;
-  image: string;
-  name: string;
+  image: string | undefined;
+  name: string | undefined;
   recentlyPlayed: {
     name: string;
     imageUrl: string;
