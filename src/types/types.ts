@@ -1,14 +1,16 @@
-export type UserData = {
+export type User = {
+  music: Music;
+  profile: Info;
+  payment: Payment;
+};
+
+export type Music = {
   currentTopTrack: {
     imageUrl: string;
     trackName: string;
     uri: string;
     artist: { name: string; uri: string }[];
   };
-  email: string;
-  imageUrl: string;
-  lastUpdated: number;
-  name: string;
   recentArtists: { name: string; imageUrl: string; uri: string }[];
   recentTracks: {
     name: string;
@@ -24,8 +26,29 @@ export type UserData = {
     uri: string;
     artist: { name: string; uri: string }[];
   }[];
+};
+
+export type mutationStatus =
+  | {
+      success: boolean;
+      error: undefined;
+    }
+  | {
+      success: undefined;
+      error: boolean;
+    };
+
+export type Info = {
+  accountVerified: boolean;
+  email: string;
+  imageUrl: string | undefined;
+  lastUpdated: number;
+  name: string | undefined;
+};
+
+// true is paid, false is pending
+export type Payment = {
   paymentHistory: string[];
-  // true is paid, false is pending
   paymentStatus: boolean;
   points: number;
 };

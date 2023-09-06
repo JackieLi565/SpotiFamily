@@ -3,63 +3,40 @@ import Member from "@/components/Admin/Member";
 import LogoutButton from "@/components/Buttons/LogoutButton";
 import Header from "@/components/Header";
 import AdminSDK from "@/lib/firebase.config";
-import { UserData } from "@/types/types";
-const fetchMemberDetails = async () => {
-  const database = AdminSDK.database;
-  const memberDocs = await database.collection("family").get();
+import { collections } from "@/constants";
+import { User, Payment, Info } from "@/types/types";
 
-  const familyData: any[] = [];
-  memberDocs.forEach((doc) => {
-    const docData = doc.data() as UserData;
-    familyData.push({
-      id: doc.id,
-      imageUrl: docData.imageUrl,
-    });
-  });
+type MemberCard = {
+  id: string;
+  payment: Payment;
+  profile: Info;
+};
+
+const fetchMemberDetails = async () => {
+  const db = AdminSDK.database;
+  const memberRef = db.collection(collections.family);
+  try {
+    const docData = await memberRef
+      .where("profile.accountVerified", "==", true)
+      .get();
+
+    const memberData: MemberCard[] = [];
+
+    docData.forEach((doc) =>
+      memberData.push({
+        id: doc.id,
+        payment: doc.data().payment as Payment,
+        profile: doc.data().profile as Info,
+      })
+    );
+    return memberData;
+  } catch {
+    throw new Error("Could not fetch data");
+  }
 };
 const Page = async () => {
-  const memberDetails = [
-    {
-      id: "dsadasdasda",
-      imageURL: "",
-      name: "Jackie",
-      payment: true,
-      lastPayment: "Aug 12, 2023",
-      points: 500,
-    },
-    {
-      id: "dasda",
-      imageURL: "",
-      name: "James",
-      payment: false,
-      lastPayment: "Feb 20, 2023",
-      points: 400,
-    },
-    {
-      id: "dsadasdasdsada",
-      imageURL: "",
-      name: "Adam",
-      payment: false,
-      lastPayment: "June 2, 2023",
-      points: 20,
-    },
-    {
-      id: "dmodsaodas",
-      imageURL: "",
-      name: "Carly",
-      payment: true,
-      lastPayment: "April 6, 2023",
-      points: 431,
-    },
-    {
-      id: "dmodsaodas",
-      imageURL: "",
-      name: "Carly",
-      payment: true,
-      lastPayment: "April 6, 2023",
-      points: 431,
-    },
-  ];
+  const memberData = await fetchMemberDetails();
+
   return (
     <main className="flex flex-col h-screen">
       <Header action={<LogoutButton />} />
@@ -70,20 +47,24 @@ const Page = async () => {
         <div className="flex md:px-24 gap-8">
           <AddUser />
           <div className="flex max-w-7xl m-auto md:gap-20 flex-wrap">
-            {memberDetails.map(
-              ({ name, imageURL, payment, lastPayment, points, id }) => {
+            {memberData ? (
+              memberData.map(({ id, profile, payment }) => {
                 return (
                   <Member
                     key={id}
-                    name={name}
-                    imageURL={imageURL}
-                    payment={payment}
-                    lastPayment={lastPayment}
-                    points={points}
+                    name={profile.name ? profile.name : `User ${id}`}
+                    imageURL={profile.imageUrl ? profile.imageUrl : ""}
+                    payment={payment.paymentStatus}
+                    lastPayment={
+                      payment.paymentHistory[payment.paymentHistory.length - 1]
+                    }
+                    points={payment.points}
                     id={id}
                   />
                 );
-              }
+              })
+            ) : (
+              <h1 className="text-red-600">No users</h1>
             )}
           </div>
         </div>

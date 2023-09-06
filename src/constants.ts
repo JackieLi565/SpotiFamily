@@ -7,3 +7,7 @@ export const spotifyApi = new SpotifyWebApi({
   clientSecret: process.env.SPOTIFY_SECRET,
   redirectUri: `${webUrl}/api/callback`,
 });
+
+export const collections = {
+  family: "family",
+};
