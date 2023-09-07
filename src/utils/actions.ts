@@ -25,7 +25,7 @@ export async function addUser(formData: FormData): Promise<ActionResponse> {
     const paymentData: Payment = {
       paymentHistory: [],
       paymentStatus: false,
-      points: 0,
+      points: 500,
     };
 
     const newUser = {

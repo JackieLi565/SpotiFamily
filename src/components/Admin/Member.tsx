@@ -1,4 +1,7 @@
+"use client";
 import { FC } from "react";
+import Image from "next/image";
+import axios from "axios";
 type MemberProps = {
   name: string;
   imageURL: string;
@@ -24,9 +27,24 @@ const Member: FC<MemberProps> = ({
 
     if (points <= 200) return <span className="text-red-600">{points}</span>;
   };
+
+  const deleteMutation = async () => {
+    try {
+      await axios.delete(`/api/user/${id}`);
+    } catch (e: any) {
+      console.log(e.message, "error");
+    }
+  };
   return (
     <div className="space-y-6">
-      <div className=" rounded-full w-64 h-64 bg-red-300" />
+      <Image
+        src={imageURL ? imageURL : ""}
+        alt={`${name}'s Profile Picture`}
+        className="w-64 h-64 rounded-full"
+        width={10000}
+        height={10000}
+      />
+
       <h1 className="text-white hover:cursor-pointer hover:text-primary-green text-xl md:text-2xl">
         {name}
       </h1>
@@ -46,7 +64,10 @@ const Member: FC<MemberProps> = ({
         Current Points: {renderPointsStyle()}
       </h1>
       <div className="space-x-2">
-        <button className="px-4 py-1 bg-red-600 text-white hover:bg-opacity-80 transition-colors rounded-md">
+        <button
+          onClick={deleteMutation}
+          className="px-4 py-1 bg-red-600 text-white hover:bg-opacity-80 transition-colors rounded-md"
+        >
           Remove
         </button>
         <button className="px-4 py-1 bg-primary-green text-white bg-opacity-80 hover:bg-opacity-100 transition-colors rounded-md">

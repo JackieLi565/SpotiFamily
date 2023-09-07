@@ -41,7 +41,7 @@ export async function GET(request: Request) {
       email: clientData.body.email,
       lastUpdated: date.getTime(),
       name: clientData.body.display_name,
-      imageUrl: clientData.body.images && clientData.body.images[0].url,
+      imageUrl: clientData.body.images && clientData.body.images[1].url,
     };
 
     const paymentData: Payment = {

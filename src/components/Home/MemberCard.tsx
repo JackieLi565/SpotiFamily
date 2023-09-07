@@ -13,7 +13,7 @@ const MemberCard: FC<MemberCardProps> = ({ members }) => {
   return (
     <div className="space-y-6">
       {members.map((member) => (
-        <Reveal>
+        <Reveal key={member.id}>
           <div key={member.id} className="space-y-4 w-full">
             <div className="flex flex-col gap-4 bg-elevated-base rounded p-4">
               <div className="flex justify-between">
