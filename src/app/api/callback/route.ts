@@ -30,10 +30,6 @@ export async function GET(request: Request) {
 
     const userDocumentData = userDocumentRef.data() as User;
 
-    if (!userDocumentData.profile.accountVerified) {
-      console.log("setupAccount");
-    }
-
     const musicData = await musicDataMap();
 
     const profileData: Info = {
@@ -44,16 +40,9 @@ export async function GET(request: Request) {
       imageUrl: clientData.body.images && clientData.body.images[1].url,
     };
 
-    const paymentData: Payment = {
-      paymentHistory: [],
-      paymentStatus: false,
-      points: 0,
-    };
-
-    const user: User = {
+    const user = {
       music: musicData,
       profile: profileData,
-      payment: paymentData,
     };
 
     await collectionRef.doc(userDocumentRef.id).update(user);

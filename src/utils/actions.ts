@@ -37,7 +37,6 @@ export async function addUser(formData: FormData): Promise<ActionResponse> {
     };
 
     await memberRef.doc().create(newUser);
-    revalidatePath("/");
     return { success: true, error: false };
   } catch (e: any) {
     console.log(e.message);

@@ -35,6 +35,14 @@ const Member: FC<MemberProps> = ({
       console.log(e.message, "error");
     }
   };
+
+  const updateMutation = async () => {
+    try {
+      await axios.put(`/api/user/${id}`);
+    } catch (e: any) {
+      console.log(e.message, "error");
+    }
+  };
   return (
     <div className="space-y-6">
       <Image
@@ -70,7 +78,10 @@ const Member: FC<MemberProps> = ({
         >
           Remove
         </button>
-        <button className="px-4 py-1 bg-primary-green text-white bg-opacity-80 hover:bg-opacity-100 transition-colors rounded-md">
+        <button
+          onClick={updateMutation}
+          className="px-4 py-1 bg-primary-green text-white bg-opacity-80 hover:bg-opacity-100 transition-colors rounded-md"
+        >
           Update
         </button>
       </div>
