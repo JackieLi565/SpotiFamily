@@ -28,15 +28,11 @@ export type Music = {
   }[];
 };
 
-export type mutationStatus =
-  | {
-      success: boolean;
-      error: undefined;
-    }
-  | {
-      success: undefined;
-      error: boolean;
-    };
+export type ActionResponse = {
+  success: boolean;
+  error: boolean;
+  message?: string;
+};
 
 export type Info = {
   accountVerified: boolean;

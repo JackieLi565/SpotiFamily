@@ -4,7 +4,10 @@ import LogoutButton from "@/components/Buttons/LogoutButton";
 import Header from "@/components/Header";
 import AdminSDK from "@/lib/firebase.config";
 import { collections } from "@/constants";
-import { User, Payment, Info } from "@/types/types";
+import { Payment, Info } from "@/types/types";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import jwt from "jsonwebtoken";
 
 type MemberCard = {
   id: string;
@@ -36,6 +39,10 @@ const fetchMemberDetails = async () => {
 };
 const Page = async () => {
   const memberData = await fetchMemberDetails();
+  const cookieStore = cookies();
+  const cookieValue = cookieStore.get("admin")?.value;
+  if (!cookieValue) redirect("/");
+  if (!jwt.verify(cookieValue, process.env.JWT_SECRET)) redirect("/");
 
   return (
     <main className="flex flex-col h-screen">

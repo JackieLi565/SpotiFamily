@@ -98,7 +98,6 @@ function frequencyFinder(list: string[]) {
 
 async function musicDataMap(): Promise<Music> {
   const topTracks = await spotifyApi.getMyTopTracks();
-
   // top artists
   const topArtists = await spotifyApi.getMyTopArtists();
   // recent tracks

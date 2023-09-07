@@ -1,14 +1,14 @@
 "use client";
 import { FC, useState } from "react";
 import { addUser } from "@/utils/actions";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
-import { mutationStatus } from "@/types/types";
+import { ActionResponse } from "@/types/types";
+import SubmitButton from "../Forms/SubmitButton";
 
 const AddUser: FC = () => {
-  const { pending } = useFormStatus();
-  const [mutationResult, setMutationResult] = useState<
-    mutationStatus | undefined
-  >(undefined);
+  const [mutationResult, setMutationResult] = useState<ActionResponse>({
+    success: false,
+    error: false,
+  });
   const action = async (formData: FormData) => {
     const status = await addUser(formData);
     setMutationResult(status);
@@ -45,16 +45,7 @@ const AddUser: FC = () => {
           className="block px-2 py-1 mt-2 rounded bg-transparent border-sub-gray border w-full"
         />
       </label>
-      <button
-        type="submit"
-        className={`absolute bottom-4 px-4 py-1 bg-primary-green text-white bg-opacity-80 hover:bg-opacity-100 transition-colors rounded-md ${
-          pending
-            ? "hover:cursor-progress bg-opacity-40"
-            : "hover:cursor-pointer"
-        }`}
-      >
-        {pending ? "loading ..." : "Add User"}
-      </button>
+      <SubmitButton>Add User</SubmitButton>
       <p>{renderResult()}</p>
     </form>
   );
