@@ -1,7 +1,7 @@
 import admin from "@/lib/firebase.config";
 import { cookies } from "next/headers";
 import { MemberCardData, User } from "@/types/types";
-import MemberCard from "./MemberCard";
+import MemberCard from "../Cards/MemberFeed";
 import { verify } from "jsonwebtoken";
 import { collections } from "@/constants";
 async function getMemberFeed() {

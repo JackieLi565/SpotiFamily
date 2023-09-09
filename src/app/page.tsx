@@ -1,5 +1,5 @@
-import Header from "@/components/Header";
-import HeaderText from "@/components/Main/HeaderText";
+import Header from "@/components/Marginalia/Header";
+import HeaderText from "@/components/HeaderText";
 import Link from "next/link";
 export default function Page() {
   return (
@@ -8,7 +8,7 @@ export default function Page() {
         action={
           <Link
             className="text-lg text-sub-gray hover:text-primary-green transition-colors"
-            href={"/Admin-Login"}
+            href={"/Login"}
           >
             Admin Login
           </Link>

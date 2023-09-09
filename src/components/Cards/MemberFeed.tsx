@@ -14,7 +14,7 @@ const MemberCard: FC<MemberCardProps> = ({ members }) => {
     <div className="space-y-6">
       {members.map((member) => (
         <Reveal key={member.id}>
-          <div key={member.id} className="space-y-4 w-full">
+          <div className="space-y-4 w-full">
             <div className="flex flex-col gap-4 bg-elevated-base rounded p-4">
               <div className="flex justify-between">
                 <div className="flex items-center gap-2">
@@ -59,10 +59,11 @@ const MemberCard: FC<MemberCardProps> = ({ members }) => {
                             {track.name}
                           </a>
                           <div className="space-x-2">
-                            {track.artist.map((artist) => (
+                            {track.artist.map((artist, index) => (
                               <a
                                 href={artist.uri}
                                 className="text-sub-gray text-md"
+                                key={index}
                               >
                                 {artist.name}
                               </a>

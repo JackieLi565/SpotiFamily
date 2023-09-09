@@ -1,7 +1,7 @@
-import AddUser from "@/components/Admin/AddUser";
+import AddUser from "@/components/Forms/AddUser";
 import Member from "@/components/Admin/Member";
 import LogoutButton from "@/components/Buttons/LogoutButton";
-import Header from "@/components/Header";
+import Header from "@/components/Marginalia/Header";
 import AdminSDK from "@/lib/firebase.config";
 import { collections } from "@/constants";
 import { Payment, Info } from "@/types/types";

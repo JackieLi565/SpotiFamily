@@ -2,7 +2,7 @@
 import { FC, useState } from "react";
 import Link from "next/link";
 import { adminLogin } from "@/utils/actions";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../Buttons/SubmitButton";
 import { ActionResponse } from "@/types/types";
 
 const AdminLogin: FC = () => {

@@ -2,7 +2,7 @@
 import { FC, useState } from "react";
 import { addUser } from "@/utils/actions";
 import { ActionResponse } from "@/types/types";
-import SubmitButton from "../Forms/SubmitButton";
+import SubmitButton from "../Buttons/SubmitButton";
 
 const AddUser: FC = () => {
   const [mutationResult, setMutationResult] = useState<ActionResponse>({

@@ -59,7 +59,6 @@ export default async function Profile() {
           <h1 className="text-white text-2xl">{profileData.name}</h1>
         </div>
       </div>
-
       <div className="h-96 w-full bg-elevated-base rounded px-4 py-4 space-y-3">
         <h1 className="text-primary-green text-2xl font-semibold w-full">
           My Stats

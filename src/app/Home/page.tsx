@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import Profile from "@/components/Home/Profile";
-import Payment from "@/components/Home/Payment";
+import Profile from "@/components/Cards/Profile";
+import Payment from "@/components/Cards/Payment";
 import MemberFeed from "@/components/Home/MemberFeed";
 import AnimateFade from "@/components/Animations/Fade";
 import LogoutButton from "@/components/Buttons/LogoutButton";
-import Header from "@/components/Header";
+import Header from "@/components/Marginalia/Header";
 
 export default function Page() {
   const cookieStore = cookies();
