@@ -3,7 +3,7 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 const db = admin.firestore();
 
-exports.dailyTask = functions.pubsub
+exports.outstandingBalancePenalty = functions.pubsub
   .schedule("0 0 * * *")
   .timeZone("America/New_York")
   .onRun(async (context) => {
@@ -42,7 +42,7 @@ exports.dailyTask = functions.pubsub
     return;
   });
 
-exports.dailyTask = functions.pubsub
+exports.paymentStatusReset = functions.pubsub
   .schedule("0 0 9 * *")
   .timeZone("America/New_York")
   .onRun(async (context) => {
