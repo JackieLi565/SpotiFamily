@@ -109,7 +109,11 @@ export default async function Payment() {
                     year: "numeric",
                   });
 
-                  return <li className="text-sub-gray">{date}</li>;
+                  return (
+                    <li key={timeStamp.seconds} className="text-sub-gray">
+                      {date}
+                    </li>
+                  );
                 })}
               </ol>
             ) : (

@@ -20,7 +20,7 @@ const HeaderText: FC = () => {
         <p className="text-center text-lg max-w-3xl mx-auto text-sub-gray">
           Bid farewell to the complexities of traditional payment tracking and
           enjoy a<span className=" text-primary-green"> harmonious </span>{" "}
-          environment where everyone's contributions are{" "}
+          environment where everyone&apos;s contributions are{" "}
           <span className=" text-primary-green">transparent</span> and{" "}
           <span className=" text-primary-green">accounted</span> for.
         </p>

@@ -73,7 +73,7 @@ const Page = async () => {
                     imageURL={profile.imageUrl ? profile.imageUrl : ""}
                     payment={payment.paymentStatus}
                     lastPayment={timeStamp}
-                    points={payment.points}
+                    points={payment.outstandingBalance}
                     id={id}
                   />
                 );

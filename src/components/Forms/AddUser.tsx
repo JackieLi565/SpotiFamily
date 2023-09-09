@@ -25,8 +25,8 @@ const AddUser: FC = () => {
       if (mutationResult.success) {
         return (
           <p className="text-primary-green">
-            Successfully Added User. Please remeber to add the user's email to
-            the application via Spotify Dashboard
+            Successfully Added User. Please remeber to add the user&apos;s email
+            to the application via Spotify Dashboard
           </p>
         );
       }
