@@ -47,7 +47,7 @@ export type Info = {
 export type Payment = {
   paymentHistory: firestore.Timestamp[];
   paymentStatus: boolean;
-  points: number;
+  outstandingBalance: number;
 };
 
 export type MemberCardData = {

@@ -26,12 +26,12 @@ async function getPayment() {
       await database.collection("family").doc(cookieData.id).get()
     ).data() as User;
 
-    const { paymentStatus, paymentHistory, points } = payment;
+    const { paymentStatus, paymentHistory, outstandingBalance } = payment;
 
     return {
       paymentStatus,
       paymentHistory: paymentHistory.slice(0, 5),
-      points,
+      outstandingBalance: Math.round(outstandingBalance * 100) / 100,
     };
   } catch {
     return undefined;
@@ -84,9 +84,9 @@ export default async function Payment() {
           </div>
 
           <div className="bg-elevated-base w-full px-4 py-2 rounded space-y-2">
-            <h1 className="text-white text-2xl w-full">My Points:</h1>
+            <h1 className="text-white text-2xl w-full">Oustanding Balance:</h1>
             <p className=" bg-gradient-to-r  from-blue-500 to-primary-green bg-clip-text text-transparent w-full text-2xl font-semibold text-center">
-              {paymentData.points}
+              ${paymentData.outstandingBalance}
             </p>
           </div>
 
@@ -103,13 +103,11 @@ export default async function Payment() {
             {paymentData.paymentHistory.length !== 0 ? (
               <ol className="space-y-1">
                 {paymentData.paymentHistory.map((timeStamp) => {
-                  const date = timeStamp
-                    .toDate()
-                    .toLocaleString("default", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    });
+                  const date = timeStamp.toDate().toLocaleString("default", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  });
 
                   return <li className="text-sub-gray">{date}</li>;
                 })}

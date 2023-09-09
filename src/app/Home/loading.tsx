@@ -106,50 +106,6 @@ const Loader: FC = () => {
                   </div>
                 </div>
               </div>
-
-              <div className="flex flex-col gap-4 bg-elevated-base rounded p-4">
-                <div className="flex justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-16 h-16 rounded-full bg-slate-300 bg-opacity-50 animate-pulse"></div>
-                  </div>
-                </div>
-
-                <div className="px-8">
-                  <div className="space-y-1 mb-2">
-                    <h3 className="text-center text-lg text-primary-green mb-3">
-                      Recently Played
-                    </h3>
-                    <ol className="px-2 space-y-4 ">
-                      {Array(5)
-                        .fill(0)
-                        .map((__, index) => (
-                          <div
-                            key={index}
-                            style={{ animationDelay: `${index * 0.8}s` }}
-                            className="w-full h-14 rounded bg-slate-300 bg-opacity-50 animate-pulse"
-                          ></div>
-                        ))}
-                    </ol>
-                  </div>
-
-                  <div>
-                    <h3 className="text-center text-lg text-primary-green mb-3">
-                      Top Artists
-                    </h3>
-                    <div className="flex flex-row justify-center items-center gap-6 ">
-                      {Array(3)
-                        .fill(0)
-                        .map((__, index) => (
-                          <div
-                            style={{ animationDelay: `${index * 0.6}s` }}
-                            key={index}
-                            className="w-16 h-16 rounded-full bg-slate-300 bg-opacity-50 animate-pulse"
-                          ></div>
-                        ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
