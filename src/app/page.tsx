@@ -3,7 +3,7 @@ import HeaderText from "@/components/HeaderText";
 import Link from "next/link";
 export default function Page() {
   return (
-    <main className="bg-elevated-base h-full">
+    <main className="bg-elevated-base h-screen">
       <Header
         action={
           <Link

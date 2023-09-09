@@ -14,7 +14,7 @@ export async function DELETE(
     .doc(userId)
     .delete();
 
-  revalidatePath("/Home/Admin");
+  revalidatePath(`/api/user/${userId}`);
   return NextResponse.json(deleteResult);
 }
 
@@ -30,6 +30,6 @@ export async function PUT(
       "payment.paymentStatus": true,
     });
 
-  revalidatePath("http://localhost:3000/Home/Admin");
+  revalidatePath(`/api/user/${userId}`);
   return NextResponse.json(updateResult);
 }

@@ -102,9 +102,17 @@ export default async function Payment() {
 
             {paymentData.paymentHistory.length !== 0 ? (
               <ol className="space-y-1">
-                {paymentData.paymentHistory.map((date) => (
-                  <li className="text-sub-gray">{date}</li>
-                ))}
+                {paymentData.paymentHistory.map((timeStamp) => {
+                  const date = timeStamp
+                    .toDate()
+                    .toLocaleString("default", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    });
+
+                  return <li className="text-sub-gray">{date}</li>;
+                })}
               </ol>
             ) : (
               <h3 className="text-sub-gray text-center">

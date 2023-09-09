@@ -1,3 +1,4 @@
+import { firestore } from "firebase-admin";
 export type User = {
   music: Music;
   profile: Info;
@@ -44,7 +45,7 @@ export type Info = {
 
 // true is paid, false is pending
 export type Payment = {
-  paymentHistory: string[];
+  paymentHistory: firestore.Timestamp[];
   paymentStatus: boolean;
   points: number;
 };

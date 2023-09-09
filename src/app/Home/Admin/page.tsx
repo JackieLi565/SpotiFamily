@@ -56,15 +56,23 @@ const Page = async () => {
           <div className="flex max-w-7xl m-auto md:gap-20 flex-wrap">
             {memberData ? (
               memberData.map(({ id, profile, payment }) => {
+                const timeStamp = payment.paymentHistory[
+                  payment.paymentHistory.length - 1
+                ]
+                  .toDate()
+                  .toLocaleString("default", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  });
+
                 return (
                   <Member
                     key={id}
                     name={profile.name ? profile.name : `User ${id}`}
                     imageURL={profile.imageUrl ? profile.imageUrl : ""}
                     payment={payment.paymentStatus}
-                    lastPayment={
-                      payment.paymentHistory[payment.paymentHistory.length - 1]
-                    }
+                    lastPayment={timeStamp}
                     points={payment.points}
                     id={id}
                   />
