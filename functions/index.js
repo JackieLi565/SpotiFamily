@@ -54,7 +54,10 @@ exports.paymentStatusReset = functions.pubsub
 
       snapshot.forEach((doc) => {
         const docRef = familyCollectionRef.doc(doc.id);
-        batch.update(docRef, { "payment.paymentStatus": false });
+        batch.update(docRef, {
+          "payment.paymentStatus": false,
+          "payment.outstandingBalance": 3.2,
+        });
       });
 
       await batch.commit();
