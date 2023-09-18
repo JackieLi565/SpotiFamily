@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import admin from "@/lib/firebase.config";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { Info, Music, Payment, User } from "@/types/types";
+import { Info, Music, User } from "@/types/types";
 
 const db = admin.database;
 
@@ -60,7 +60,7 @@ export async function GET(request: Request) {
 
     return response;
   } catch (e: any) {
-    console.log(e.message);
+    console.log(e);
   }
 }
 
@@ -86,16 +86,18 @@ function frequencyFinder(list: string[]) {
 }
 
 async function musicDataMap(): Promise<Music> {
+  // top tracks
   const topTracks = await spotifyApi.getMyTopTracks();
   // top artists
   const topArtists = await spotifyApi.getMyTopArtists();
   // recent tracks
   const recentTracks = await spotifyApi.getMyRecentlyPlayedTracks();
-  // recent artists
+  // recent artistsID
   const recentArtistsId = recentTracks.body.items.flatMap((track) =>
     track.track.artists.map((artist) => artist.id)
   );
 
+  // re4cent artists
   const recentArtists = await Promise.all(
     recentArtistsId.map(async (id) => {
       const artistObject = await spotifyApi.getArtist(id);
@@ -120,9 +122,12 @@ async function musicDataMap(): Promise<Music> {
   const currentTopTrackInfo = await spotifyApi.getTrack(
     currentTopTrackId as string
   );
+
   const currentTopTrack = {
     trackName: currentTopTrackInfo.body.name,
-    imageUrl: currentTopTrackInfo.body.album.images[0].url,
+    imageUrl: currentTopTrackInfo.body.album.images[0]
+      ? currentTopTrackInfo.body.album.images[0].url
+      : "",
     uri: currentTopTrackInfo.body.uri,
     artist: currentTopTrackInfo.body.artists.map((artist) => ({
       name: artist.name,
@@ -133,7 +138,7 @@ async function musicDataMap(): Promise<Music> {
   const trackedTopArtists = topArtists.body.items.map((artistObj) => {
     return {
       name: artistObj.name,
-      imageUrl: artistObj.images[0].url,
+      imageUrl: artistObj.images[0] ? artistObj.images[0].url : "",
       uri: artistObj.uri,
     };
   });
@@ -141,7 +146,7 @@ async function musicDataMap(): Promise<Music> {
   const trackedTopTracks = topTracks.body.items.map((trackObj) => {
     return {
       name: trackObj.name,
-      imageUrl: trackObj.album.images[0].url,
+      imageUrl: trackObj.album.images[0] ? trackObj.album.images[0].url : "",
       uri: trackObj.uri,
       artist: trackObj.artists.map((artist) => ({
         name: artist.name,
@@ -157,7 +162,9 @@ async function musicDataMap(): Promise<Music> {
     topGenre,
     recentTracks: recentTracks.body.items.map((track) => ({
       name: track.track.name,
-      imageUrl: track.track.album.images[0].url,
+      imageUrl: track.track.album.images[0]
+        ? track.track.album.images[0].url
+        : "",
       uri: track.track.uri,
       artist: track.track.artists.map((artist) => ({
         name: artist.name,

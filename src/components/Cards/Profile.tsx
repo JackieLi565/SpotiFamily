@@ -5,10 +5,7 @@ import { notFound } from "next/navigation";
 import jwt from "jsonwebtoken";
 import { User } from "@/types/types";
 import profileIcon from "../../../public/profileIcon.svg";
-// get name
-// top 3 artists
-// top 3 songs
-// current fav song
+
 async function getProfileDetails() {
   const database = admin.database;
   const cookieStore = cookies();
@@ -45,7 +42,10 @@ export default async function Profile() {
   const profileData = await getProfileDetails();
 
   return (
-    <div className="w-[275px] h-fit sticky top-4 space-y-4">
+    <div className="w-full md:w-[275px] h-fit sticky top-4 space-y-4">
+      <h1 className="md:hidden text-white text-3xl font-semibold my-2">
+        My Profile
+      </h1>
       <div className="rounded bg-elevated-base w-full h-20 flex px-4 items-center gap-4">
         <Image
           className="rounded-full object-fill h-12 w-12"

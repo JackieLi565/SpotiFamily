@@ -19,7 +19,7 @@ export default function Page() {
       <Header action={<LogoutButton />} />
 
       <main className="py-6">
-        <div className="relative flex justify-center max-w-6xl m-auto gap-4">
+        <div className="relative flex px-6 md:flex-row flex-col justify-center max-w-6xl m-auto gap-4">
           <AnimateFade type="left">
             <Profile />
           </AnimateFade>

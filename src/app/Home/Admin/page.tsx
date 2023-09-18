@@ -51,9 +51,9 @@ const Page = async () => {
         <h1 className=" text-sub-gray w-full md:px-24 my-8 md:text-4xl">
           Welcome back <span className="text-primary-green ">Admin</span>
         </h1>
-        <div className="flex md:px-24 gap-8">
+        <div className="flex md:px-24 gap-16">
           <AddUser />
-          <div className="flex max-w-7xl m-auto md:gap-20 flex-wrap">
+          <div className="flex max-w-7xl md:gap-20 flex-wrap">
             {memberData ? (
               memberData.map(({ id, profile, payment }) => {
                 const timeStamp = payment.paymentHistory[
@@ -73,7 +73,7 @@ const Page = async () => {
                     imageURL={profile.imageUrl ? profile.imageUrl : ""}
                     payment={payment.paymentStatus}
                     lastPayment={timeStamp}
-                    points={payment.outstandingBalance}
+                    outstandingBalance={payment.outstandingBalance}
                     id={id}
                   />
                 );

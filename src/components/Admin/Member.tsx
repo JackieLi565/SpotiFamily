@@ -7,27 +7,17 @@ type MemberProps = {
   imageURL: string;
   payment: boolean;
   lastPayment: string;
-  points: number;
+  outstandingBalance: number;
   id: string;
 };
 const Member: FC<MemberProps> = ({
   name,
   imageURL,
   payment,
-  points,
+  outstandingBalance,
   lastPayment,
   id,
 }) => {
-  const renderPointsStyle = () => {
-    if (points >= 500)
-      return <span className="text-primary-green">{points}</span>;
-
-    if (points < 500 && points > 200)
-      return <span className=" text-orange-400">{points}</span>;
-
-    if (points <= 200) return <span className="text-red-600">{points}</span>;
-  };
-
   const deleteMutation = async () => {
     try {
       await axios.delete(`/api/user/${id}`);
@@ -44,11 +34,11 @@ const Member: FC<MemberProps> = ({
     }
   };
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-5 rounded-lg bg-elevated-base">
       <Image
         src={imageURL ? imageURL : ""}
         alt={`${name}'s Profile Picture`}
-        className="w-64 h-64 rounded-full"
+        className="w-64 h-64 rounded-full m-auto"
         width={10000}
         height={10000}
       />
@@ -69,7 +59,16 @@ const Member: FC<MemberProps> = ({
         Last Payment: <span className="text-primary-green">{lastPayment}</span>
       </h1>
       <h1 className="text-white text-lg">
-        Current Points: {renderPointsStyle()}
+        Outstanding Balance:{" "}
+        {outstandingBalance > 0 ? (
+          <span className="text-red-600">
+            ${outstandingBalance.toPrecision(3)}
+          </span>
+        ) : (
+          <span className="text-primary-green">
+            ${outstandingBalance.toPrecision(3)}
+          </span>
+        )}
       </h1>
       <div className="space-x-2">
         <button

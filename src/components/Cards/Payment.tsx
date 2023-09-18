@@ -66,8 +66,10 @@ export default async function Payment() {
   const paymentData = await getPayment();
 
   return (
-    <div className="w-[217px] h-fit sticky top-4 space-y-4">
-      {/** PAYMENT STATUS */}
+    <div className=" w-full md:w-[217px] h-fit sticky top-4 space-y-4">
+      <h1 className="md:hidden text-white text-3xl font-semibold my-2">
+        My Payment
+      </h1>
       {paymentData ? (
         <>
           <div className=" bg-elevated-base w-full px-4 py-2 rounded space-y-2">
