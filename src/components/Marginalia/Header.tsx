@@ -1,12 +1,14 @@
 import Image from "next/image";
-import { FC, ReactElement } from "react";
+import { FC } from "react";
 import Link from "next/link";
-type HeaderProps = {
-  action: ReactElement;
-};
-const Header: FC<HeaderProps> = ({ action }) => {
+import { cookies } from "next/headers";
+import jwt from "jsonwebtoken";
+import LogoutButton from "../Buttons/LogoutButton";
+const Header: FC = () => {
+  const cookieStore = cookies();
+  const cookieValue = cookieStore.get("SpooCookie")?.value;
   return (
-    <nav className="sticky top-0 bg-elevated-base w-full flex justify-between items-center px-3 md:px-8 py-4">
+    <nav className="bg-elevated-base w-full flex justify-between items-center px-3 md:px-8 py-4">
       <div className="flex items-center gap-2">
         <Image
           className="h-12 w-12"
@@ -27,7 +29,7 @@ const Header: FC<HeaderProps> = ({ action }) => {
             Payment
           </Link>
         </div>
-        {action}
+        <LogoutButton />
       </div>
     </nav>
   );

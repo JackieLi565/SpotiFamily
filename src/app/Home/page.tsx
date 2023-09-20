@@ -5,8 +5,6 @@ import Profile from "@/components/Cards/Profile";
 import Payment from "@/components/Cards/Payment";
 import MemberFeed from "@/components/Home/MemberFeed";
 import AnimateFade from "@/components/Animations/Fade";
-import LogoutButton from "@/components/Buttons/LogoutButton";
-import Header from "@/components/Marginalia/Header";
 
 export default function Page() {
   const cookieStore = cookies();
@@ -16,8 +14,6 @@ export default function Page() {
 
   return (
     <>
-      <Header action={<LogoutButton />} />
-
       <main className="py-6">
         <div className="relative flex px-6 md:flex-row flex-col justify-center max-w-6xl m-auto gap-4">
           <AnimateFade type="left">

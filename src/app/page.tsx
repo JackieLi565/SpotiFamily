@@ -1,28 +1,15 @@
-"use client";
-import Header from "@/components/Marginalia/Header";
 import HeaderText from "@/components/HeaderText";
-import Link from "next/link";
+import Image from "next/image";
+import homeImage from "../../public/images/home.png";
 export default function Page() {
   return (
-    <main className="bg-elevated-base h-screen">
-      <section className="h-full flex flex-col justify-between">
-        <div>
-          <Header
-            action={
-              <Link
-                className="text-lg text-sub-gray hover:text-primary-green transition-colors"
-                href={"/Login"}
-              >
-                Admin Login
-              </Link>
-            }
-          />
-          <HeaderText />
-        </div>
-        <div className="flex justify-center w-full">
-          <div className="w-2/3 border border-primary-green h-[350px] rounded-t-xl"></div>
-        </div>
-      </section>
+    <main className="bg-elevated-base flex-1 flex flex-col justify-between">
+      <HeaderText />
+      <Image
+        src={homeImage}
+        alt="home image"
+        className="mt-5 w-2/3 mx-auto rounded-t-lg"
+      />
     </main>
   );
 }
