@@ -1,11 +1,13 @@
+"use client";
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import LogoutButton from "../Buttons/LogoutButton";
-const Header: FC = () => {
-  const cookieStore = cookies();
-  const cookieValue = cookieStore.get("SpooCookie")?.value;
+type HeaderProps = {
+  cookieValue: string | undefined;
+};
+const Header: FC<HeaderProps> = ({ cookieValue }) => {
   return (
     <nav className="bg-elevated-base w-full flex justify-between items-center px-3 md:px-8 py-4">
       <div className="flex items-center gap-2">
