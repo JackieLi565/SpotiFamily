@@ -6,6 +6,7 @@ import { ActionResponse, Payment } from "@/types/types";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 const db = AdminSDK.database;
 
@@ -76,4 +77,35 @@ export async function adminLogin(formData: FormData): Promise<ActionResponse> {
     sameSite: "lax",
   });
   return redirect("/Home/Admin");
+}
+
+export async function paymentAmount(
+  formData: FormData
+): Promise<ActionResponse> {
+  const amount = formData.get("amount");
+  const cookieStore = cookies();
+  const cookie = cookieStore.get("SpooCookie") as RequestCookie;
+  const requestRef = db.collection("requests");
+
+  try {
+    const cookieData = jwt.verify(cookie.value, process.env.JWT_SECRET) as {
+      id: string;
+      iat: number;
+    };
+
+    if (!amount) throw new Error("Undefined value");
+    const documentData = {
+      user: cookieData.id,
+      amount,
+    };
+
+    await requestRef.add(documentData);
+    return {
+      success: true,
+      error: false,
+      message: "Payment Request Appointed",
+    };
+  } catch (e: any) {
+    return { success: false, error: true, message: e.message };
+  }
 }

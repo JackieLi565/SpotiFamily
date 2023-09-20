@@ -86,7 +86,7 @@ export default async function Payment() {
           </div>
 
           <div className="bg-elevated-base w-full px-4 py-2 rounded space-y-2">
-            <h1 className="text-white text-2xl w-full">Oustanding Balance:</h1>
+            <h1 className="text-sub-gray w-full">Oustanding Balance:</h1>
             <p className=" bg-gradient-to-r  from-blue-500 to-primary-green bg-clip-text text-transparent w-full text-2xl font-semibold text-center">
               ${paymentData.outstandingBalance}
             </p>
