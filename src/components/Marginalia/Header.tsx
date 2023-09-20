@@ -2,7 +2,6 @@ import Image from "next/image";
 import { FC } from "react";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
 import LogoutButton from "../Buttons/LogoutButton";
 const Header: FC = () => {
   const cookieStore = cookies();
@@ -21,15 +20,26 @@ const Header: FC = () => {
       </div>
 
       <div className="flex gap-6">
-        <div className="space-x-4">
+        {cookieValue ? (
+          <>
+            <div className="space-x-4">
+              <Link
+                href={"/Payment"}
+                className="text-lg text-sub-gray hover:text-primary-green transition-colors"
+              >
+                Payment
+              </Link>
+            </div>
+            <LogoutButton />
+          </>
+        ) : (
           <Link
-            href={"/Payment"}
+            href={"/Login"}
             className="text-lg text-sub-gray hover:text-primary-green transition-colors"
           >
-            Payment
+            Admin Login
           </Link>
-        </div>
-        <LogoutButton />
+        )}
       </div>
     </nav>
   );

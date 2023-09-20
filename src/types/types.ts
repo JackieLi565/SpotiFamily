@@ -70,3 +70,10 @@ export type MemberCardData = {
   }[];
   topGenre: string;
 };
+
+export type PaymentRequest = {
+  state: boolean;
+  dateAccepted: firestore.Timestamp;
+  dateSubmitted: firestore.Timestamp;
+  remainingBalance: number;
+};
