@@ -2,11 +2,12 @@
 import { revalidatePath } from "next/cache";
 import AdminSDK from "@/lib/firebase.config";
 import { collections } from "@/constants";
-import { ActionResponse, Payment } from "@/types/types";
+import { ActionResponse, Payment, PaymentRequest } from "@/types/types";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { firestore } from "firebase-admin";
 
 const db = AdminSDK.database;
 
@@ -94,9 +95,13 @@ export async function paymentAmount(
     };
 
     if (!amount) throw new Error("Undefined value");
-    const documentData = {
-      user: cookieData.id,
-      amount,
+    const requestAmount = parseInt(amount.toString());
+    if (requestAmount < 0) throw new Error("");
+    const documentData: PaymentRequest = {
+      amount: requestAmount,
+      userId: cookieData.id,
+      state: false,
+      dateSubmitted: firestore.Timestamp.fromDate(new Date()),
     };
 
     await requestRef.add(documentData);
