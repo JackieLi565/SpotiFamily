@@ -72,8 +72,10 @@ export type MemberCardData = {
 };
 
 export type PaymentRequest = {
+  amount: number;
   state: boolean;
-  dateAccepted: firestore.Timestamp;
+  userId: string;
+  dateAccepted?: firestore.Timestamp;
   dateSubmitted: firestore.Timestamp;
-  remainingBalance: number;
+  remainingBalance?: number;
 };
