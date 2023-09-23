@@ -59,7 +59,8 @@ export default async function Profile() {
           <h1 className="text-white text-2xl">{profileData.name}</h1>
         </div>
       </div>
-      <div className="h-96 w-full bg-elevated-base rounded px-4 py-4 space-y-3">
+
+      <div className=" w-full bg-elevated-base rounded px-4 py-4 space-y-3">
         <h1 className="text-primary-green text-2xl font-semibold w-full">
           My Stats
         </h1>
@@ -97,12 +98,12 @@ export default async function Profile() {
         </div>
 
         <div className="space-y-1">
-          <h2 className="text-gray-300 text-md">Current Favourite</h2>
+          <h2 className=" text-secondary-green text-md">Current Favourite</h2>
           <a
             href={profileData.track.uri}
-            className="text-sub-gray px-2 hover:text-primary-green"
+            className="text-sub-gray hover:text-primary-green"
           >
-            {profileData.track.trackName}
+            {profileData.track.trackName.trim()}
           </a>
         </div>
       </div>

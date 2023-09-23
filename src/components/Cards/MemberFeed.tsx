@@ -16,7 +16,7 @@ const MemberCard: FC<MemberCardProps> = ({ members }) => {
         <Reveal key={member.id}>
           <div className="space-y-4 w-full">
             <div className="flex flex-col gap-4 bg-elevated-base rounded p-4">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center px-2">
                 <div className="flex items-center gap-2">
                   <Image
                     className="rounded-full object-fill h-12 w-12"
@@ -30,7 +30,7 @@ const MemberCard: FC<MemberCardProps> = ({ members }) => {
                   </h1>
                 </div>
 
-                <h1 className="bg-gradient-to-r from-red-400 to-blue-400 bg-clip-text text-transparent text-2xl text-center font-semibold ">
+                <h1 className="text-primary-green text-2xl text-center font-semibold ">
                   {member.topGenre.charAt(0).toUpperCase() +
                     member.topGenre.slice(1)}
                 </h1>

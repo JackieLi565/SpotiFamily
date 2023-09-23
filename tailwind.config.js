@@ -17,6 +17,7 @@ module.exports = {
     backgroundImage: {
       "green-blob": "url('/backgrounds/greenBlob.svg')",
       "green-waves": "url('/backgrounds/greenWaves.svg')",
+      "error-blob": "url('/backgrounds/errorBlob.svg')",
     },
   },
   plugins: [],

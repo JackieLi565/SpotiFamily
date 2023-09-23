@@ -24,13 +24,16 @@ export async function GET(request: Request) {
       .where("profile.email", "==", clientData.body.email)
       .get();
 
-    if (doc.docs.length === 0) notFound();
+    if (doc.docs.length === 0)
+      NextResponse.redirect(new URL("/500", request.url));
 
     const [userDocumentRef] = doc.docs;
 
     const userDocumentData = userDocumentRef.data() as User;
 
     const musicData = await musicDataMap();
+
+    if (!musicData) NextResponse.redirect(new URL("/500", request.url));
 
     const profileData: Info = {
       accountVerified: true,
@@ -85,9 +88,13 @@ function frequencyFinder(list: string[]) {
   return mostFrequentItem ? mostFrequentItem : "None";
 }
 
-async function musicDataMap(): Promise<Music> {
+async function musicDataMap(): Promise<Music | undefined> {
   // top tracks
   const topTracks = await spotifyApi.getMyTopTracks();
+
+  if (topTracks.statusCode !== 200) {
+    return undefined;
+  }
   // top artists
   const topArtists = await spotifyApi.getMyTopArtists();
   // recent tracks

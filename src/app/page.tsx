@@ -11,7 +11,7 @@ export default function Page() {
           <Image
             src={homeImage}
             alt="home image"
-            className="mt-5 w-2/3 mx-auto rounded-t-lg border-t border-x border-primary-green"
+            className="mt-5 w-2/3 mx-auto rounded-t-lg"
           />
         </Scale>
       </section>
