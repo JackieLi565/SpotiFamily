@@ -4,14 +4,14 @@ import homeImage from "../../public/images/home.png";
 import Scale from "@/components/Animations/Scale";
 export default function Page() {
   return (
-    <main className="bg-elevated-base flex-1 flex flex-col justify-between">
+    <main className="bg-green-waves bg-cover flex flex-col justify-between items-center flex-1">
       <HeaderText />
-      <section className=" overflow-y-hidden">
-        <Scale>
+      <section className="overflow-hidden">
+        <Scale amount={1.1}>
           <Image
             src={homeImage}
             alt="home image"
-            className="mt-5 w-2/3 mx-auto rounded-t-lg"
+            className="mt-5 w-2/3 mx-auto rounded-t-lg border-t border-x border-primary-green"
           />
         </Scale>
       </section>

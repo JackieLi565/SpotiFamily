@@ -27,10 +27,10 @@ const HeaderText: FC = () => {
 
         <button
           onClick={auth}
-          className="border-2 group m-auto rounded-md border-primary-green text-black flex items-center gap-2 pl-2 pr-4"
+          className="bg-elevated-base group m-auto rounded-md text-black flex items-center gap-2 py-2 pl-4 pr-6"
         >
           <Image
-            className="h-16 w-16"
+            className="h-12 w-12"
             src={"/spotify.svg"}
             alt="spotify icon"
             height={80}

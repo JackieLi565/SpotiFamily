@@ -14,6 +14,10 @@ module.exports = {
         "elevated-base": "#242424",
       },
     },
+    backgroundImage: {
+      "green-blob": "url('/backgrounds/greenBlob.svg')",
+      "green-waves": "url('/backgrounds/greenWaves.svg')",
+    },
   },
   plugins: [],
 };

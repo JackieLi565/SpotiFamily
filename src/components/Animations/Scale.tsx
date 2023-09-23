@@ -4,9 +4,10 @@ import { FC, ReactElement } from "react";
 
 type ScaleProps = {
   children: ReactElement;
+  amount: number;
 };
-const Scale: FC<ScaleProps> = ({ children }) => {
-  return <motion.div whileHover={{ scale: 1.2 }}>{children}</motion.div>;
+const Scale: FC<ScaleProps> = ({ children, amount }) => {
+  return <motion.div whileHover={{ scale: amount }}>{children}</motion.div>;
 };
 
 export default Scale;
