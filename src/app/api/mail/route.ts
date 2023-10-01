@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const key = searchParams.get("key");
-    if (key !== process.env.CRON_KEY) throw new Error("Invalid Cron Key");
+    if (key !== process.env.CRON_SECRET) throw new Error("Invalid Cron Key");
     const documentList = await collectionRef.get();
 
     const emailList: string[] = [];

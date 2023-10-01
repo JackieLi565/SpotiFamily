@@ -77,7 +77,7 @@ export async function adminLogin(formData: FormData): Promise<ActionResponse> {
     secure: true,
     sameSite: "lax",
   });
-  return redirect("/Home/Admin");
+  return redirect("/Admin");
 }
 
 export async function paymentAmount(

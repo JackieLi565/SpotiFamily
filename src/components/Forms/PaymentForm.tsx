@@ -33,7 +33,11 @@ const PaymentForm: FC = () => {
           <Submit />
         </div>
       </label>
-      {success && <p className="text-primary-green">success</p>}
+      {success && (
+        <p className="text-primary-green absolute">
+          Payment Successfully Requested
+        </p>
+      )}
     </form>
   );
 };

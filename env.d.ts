@@ -8,6 +8,6 @@ namespace NodeJS {
     JWT_SECRET: string;
     WEB_URL: string;
     ACCOUNT_EMAIL: string;
-    CRON_KEY: string;
+    CRON_SECRET: string;
   }
 }
