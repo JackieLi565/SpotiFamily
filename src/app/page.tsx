@@ -4,9 +4,9 @@ import homeImage from "../../public/images/home.png";
 import Scale from "@/components/Animations/Scale";
 export default function Page() {
   return (
-    <main className="bg-green-waves bg-cover flex flex-col justify-between items-center flex-1">
+    <main className="bg-green-waves bg-cover flex flex-col justify-between items-center flex-1 px-2">
       <HeaderText />
-      <section className="overflow-hidden">
+      <section className="overflow-hidden hidden md:block">
         <Scale amount={1.1}>
           <Image
             src={homeImage}
