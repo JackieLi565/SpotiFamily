@@ -12,4 +12,5 @@ export const spotifyApi = new SpotifyWebApi({
 export const collections = {
   family: "family",
   admin: "admin",
+  requests: "requests",
 };

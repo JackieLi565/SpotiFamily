@@ -24,7 +24,7 @@ const Reveal: FC<RevealProps> = ({ children }) => {
       }}
       initial="hidden"
       animate={mainControls}
-      transition={{ delay: 0.15 }}
+      transition={{ delay: 0.2 }}
     >
       {children}
     </motion.div>

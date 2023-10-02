@@ -103,7 +103,7 @@ export async function paymentAmount(
       state: false,
       dateSubmitted: firestore.Timestamp.fromDate(new Date()),
     };
-
+    revalidatePath("/Payment");
     await requestRef.add(documentData);
     return {
       success: true,
