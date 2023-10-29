@@ -79,3 +79,7 @@ export type PaymentRequest = {
   dateSubmitted: firestore.Timestamp;
   remainingBalance?: number;
 };
+
+export type Cookie = {
+  id: string;
+};

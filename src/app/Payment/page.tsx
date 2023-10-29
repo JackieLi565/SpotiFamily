@@ -1,6 +1,6 @@
 import PaymentForm from "@/components/Forms/PaymentForm";
 import { validateMember } from "@/utils/auth";
-import { PaymentRequest } from "@/types/types";
+import { User, PaymentRequest } from "@/types/types";
 import { FC } from "react";
 import { cookies } from "next/headers";
 import RequestCard from "@/components/Cards/Request";
@@ -10,10 +10,21 @@ import { collections } from "@/constants";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const RequestData = async () => {
+  const cookieStore = cookies();
+  const cookieData = validateMember(cookieStore);
+
   const snapshot = await AdminSDK.database
     .collection(collections.requests)
     .get();
 
+  const document = (
+    await AdminSDK.database
+      .collection(collections.family)
+      .doc(cookieData.id)
+      .get()
+  ).data() as User;
+
+  const payment = document.payment.outstandingBalance;
   const acceptedDocs = snapshot.docs.filter((doc) => {
     const docData = doc.data() as PaymentRequest;
 
@@ -35,23 +46,25 @@ const RequestData = async () => {
       data: doc.data() as PaymentRequest,
       id: doc.id,
     })),
+    outstanding: payment,
   };
 };
 
 const Page: FC = async () => {
-  const cookieStore = cookies();
-  validateMember(cookieStore);
-  const { accepted, pending } = await RequestData();
+  const { accepted, pending, outstanding } = await RequestData();
 
   return (
-    <main className="flex-1 overflow-y-auto py-4">
-      <h1 className="text-4xl text-white px-36 py-10">
+    <main className="flex-1 max-w-6xl m-auto overflow-y-auto py-10 space-y-10 ">
+      <h1 className="text-4xl text-white">
         <span className="text-primary-green">Payment</span> Request Form
       </h1>
-      <section className="flex justify-center items-center h-[300px]">
-        <PaymentForm />
+      <section className=" flex gap-4">
+        <div className="rounded w-2/3 bg-elevated-base h-[600px]">
+          current outstanding balance Owner e tansfer details images
+        </div>
+        <PaymentForm outstanding={outstanding} />
       </section>
-      <h1 className="text-4xl text-white px-36 py-10">
+      <h1 className="text-4xl text-white">
         <span className="text-primary-green">Payment</span> Accepted
       </h1>
       <section className="space-y-3">
@@ -62,7 +75,7 @@ const Page: FC = async () => {
             </Reveal>
           ))
         ) : (
-          <div className="max-w-7xl m-auto flex flex-col gap-4">
+          <div className=" flex flex-col gap-4">
             <ExclamationCircleOutlined className="text-sub-gray text-center text-6xl" />
             <h1 className="text-sub-gray text-center text-2xl">
               Looks There Are No Accepted Payments.
@@ -70,7 +83,7 @@ const Page: FC = async () => {
           </div>
         )}
       </section>
-      <h1 className="text-4xl text-white px-36 py-10">
+      <h1 className="text-4xl text-white">
         <span className="text-primary-green">Payment</span> Request
       </h1>
       <section className="space-y-3">

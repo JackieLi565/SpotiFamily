@@ -12,8 +12,7 @@ export async function GET(request: Request) {
   try {
     const date = new Date();
     const code = searchParams.get("code");
-
-    if (!code) notFound();
+    if (!code) throw new Error("Undefined token");
 
     const authData = await spotifyApi.authorizationCodeGrant(code);
     spotifyApi.setAccessToken(authData.body.access_token);
@@ -64,6 +63,7 @@ export async function GET(request: Request) {
     return response;
   } catch (e: any) {
     console.log(e);
+    return NextResponse.redirect(new URL("/404", request.url));
   }
 }
 

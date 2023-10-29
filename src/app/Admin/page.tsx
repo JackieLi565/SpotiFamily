@@ -1,5 +1,5 @@
+import RequestForm from "@/components/Forms/RequestForm";
 import { validateAdmin } from "@/utils/auth";
-import { LoadingOutlined } from "@ant-design/icons";
 import { cookies } from "next/headers";
 const data = async () => {
   const timer = setTimeout(() => {
@@ -15,9 +15,11 @@ const Page = async () => {
   console.log(serverStuff);
 
   return (
-    <main className="flex-1">
-      <LoadingOutlined className="text-primary-green text-8xl" />
-      <h1 className="text-white"> welcome </h1>
+    <main className="flex-1 py-16 max-w-7xl m-auto w-full">
+      <h1 className="text-white text-4xl">Welcome Back, </h1>
+      <div>incoming requests</div>
+      <RequestForm id={""} name={""} amount={0} />
+      <div>my family</div>
     </main>
   );
 };
